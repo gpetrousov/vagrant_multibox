@@ -1,6 +1,25 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+require 'net/ssh'
+
+# Check if ssh key-pair exists
+if File.exist?("files/id_rsa") == false
+  puts "Key-pair not found"
+  key = OpenSSL::PKey::RSA.new 2048
+  key_type = key.ssh_type
+  public_key = [ key.to_blob ].pack('m0')
+  openssh_format = "#{key_type} #{public_key}"
+
+  private_key_file = File.new("files/id_rsa", "w")
+  private_key_file.puts(key)
+  private_key_file.close
+
+  public_key_file = File.new("files/id_rsa.pub", "w")
+  public_key_file.puts(openssh_format)
+  public_key_file.close
+end
+
 Vagrant.configure("2") do |config|
 
   config.vm.define "ansible_master" do |ansible_master|
