@@ -26,8 +26,8 @@ Vagrant.configure("2") do |config|
     ansible_master.vm.box = "centos/7"
     ansible_master.vm.hostname = 'AnsibleMaster'
     ansible_master.vm.network :private_network, ip: "192.168.33.10"
-    ansible_master.vm.provision :shell, path: "scripts/provision_lab.sh"
     ansible_master.vm.provision "file", source: "files/id_rsa", destination: "/home/vagrant/.ssh/id_rsa"
+    ansible_master.vm.provision :shell, path: "scripts/provision_lab.sh"
     ansible_master.vm.synced_folder "../../vbox_share", "/host_share", mount_options: ["dmode=775,fmode=664"]
   end
 
