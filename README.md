@@ -12,6 +12,13 @@ from the "master" VM to any "node" VM using SSH key-pairs.
 The SSH keys are generated and added automatically to the VMs each time you delete them from
 the files directory. You can also use your custom SSH key-pair by placing it to the files directory.
 
+## Requirements
+
+- Shared host directory `../../vbox_share`  
+You can remove the mounting of a shared directory from Vagrantfile.
+- virtualbox guest additions (optional)
+- vagrant-vbguest (optional)
+
 ## How to Use
 
 1. Create the environment
