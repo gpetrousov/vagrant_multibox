@@ -10,7 +10,7 @@ from the "master" VM to any "node" VM using SSH key-pairs.
 ## SSH key-pairs
 
 The SSH keys are generated and added automatically to the VMs each time you delete them from
-the files directory.
+the files directory. You can also use your custom SSH key-pair by placing it to the files directory.
 
 ## How to Use
 
