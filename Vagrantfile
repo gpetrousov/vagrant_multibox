@@ -5,7 +5,7 @@ require 'net/ssh'
 
 # Check if ssh key-pair exists
 if File.exist?("files/id_rsa") == false
-  puts "Key-pair not found"
+  puts "SSH key-pair not found.\nCreating new one..."
   key = OpenSSL::PKey::RSA.new 2048
   key_type = key.ssh_type
   public_key = [ key.to_blob ].pack('m0')
