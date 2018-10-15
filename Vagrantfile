@@ -2,6 +2,7 @@
 # vi: set ft=ruby :
 
 require 'net/ssh'
+shared_dir = "../../vbox_share"
 
 # Check if ssh key-pair exists
 if File.exist?("files/id_rsa") == false
@@ -28,7 +29,9 @@ Vagrant.configure("2") do |config|
     master.vm.network :private_network, ip: "192.168.33.10"
     master.vm.provision "file", source: "files/id_rsa", destination: "/home/vagrant/.ssh/id_rsa"
     master.vm.provision :shell, path: "scripts/provision_lab.sh"
-    master.vm.synced_folder "../../vbox_share", "/host_share", mount_options: ["dmode=775,fmode=664"]
+    if File.exist?(shared_dir) == true
+      master.vm.synced_folder shared_dir, "/host_share", mount_options: ["dmode=775,fmode=664"]
+    end
   end
 
   config.vm.define "node0" do |node0|
@@ -36,7 +39,9 @@ Vagrant.configure("2") do |config|
     node0.vm.hostname = 'node0'
     node0.vm.network :private_network, ip: "192.168.33.12"
     node0.vm.provision "shell", inline: "cat /vagrant/files/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys"
-    node0.vm.synced_folder "../../vbox_share", "/host_share", mount_options: ["dmode=775,fmode=664"]
+    if File.exist?(shared_dir) == true
+      node0.vm.synced_folder shared_dir, "/host_share", mount_options: ["dmode=775,fmode=664"]
+    end
   end
 
   config.vm.define "node1" do |node1|
@@ -44,6 +49,8 @@ Vagrant.configure("2") do |config|
     node1.vm.hostname = 'node1'
     node1.vm.network :private_network, ip: "192.168.33.14"
     node1.vm.provision "shell", inline: "cat /vagrant/files/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys"
-    node1.vm.synced_folder "../../vbox_share", "/host_share", mount_options: ["dmode=775,fmode=664"]
+    if File.exist?(shared_dir) == true
+      node1.vm.synced_folder shared_dir, "/host_share", mount_options: ["dmode=775,fmode=664"]
+    end
   end
 end
