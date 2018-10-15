@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/gpetrousov/vagrant_multibox.svg?branch=master)](https://travis-ci.org/gpetrousov/vagrant_multibox)
+
 # Vagrant Multibox
 
 This is a multibox vagrant template which you can use to spawn multiple VMs.
