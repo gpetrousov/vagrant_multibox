@@ -22,6 +22,8 @@ if File.exist?("files/id_rsa") == false
 end
 
 Vagrant.configure("2") do |config|
+  config.vm.provision "shell",
+    inline: "echo 'StrictHostKeyChecking no' >> /home/vagrant/.ssh/config"
 
   config.vm.define "master" do |master|
     master.vm.box = "centos/7"
